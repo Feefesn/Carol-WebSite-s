@@ -1,3 +1,64 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Variáveis globais
+    const header = document.querySelector('header');
+    const nav = document.querySelector('nav');
+    const menu = document.querySelector('nav ul');
+    const inputs = document.querySelectorAll('input, textarea, select');
+    const mainContent = document.querySelector('main');
+    let lastScroll = 0;
+
+    // Adiciona o botão de menu
+    const menuButton = document.createElement('button');
+    menuButton.className = 'menu-toggle';
+    menuButton.innerHTML = '☰';
+    header.insertBefore(menuButton, nav);
+
+    // Controle do menu
+    menuButton.addEventListener('click', () => {
+        menu.classList.toggle('show');
+    });
+
+    // Fecha o menu ao clicar em um item
+    menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.remove('show');
+        });
+    });
+
+    // Controle de scroll e menu
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > lastScroll) {
+            menu.classList.remove('show');
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            header.style.transform = 'translateY(0)';
+        }
+        lastScroll = currentScroll;
+    });
+
+    // Controle de inputs
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            if (window.innerWidth <= 768) {
+                header.classList.add('input-focused');
+                mainContent.classList.add('input-focused');
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: input.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }, 300);
+            }
+        });
+
+        input.addEventListener('blur', () => {
+            header.classList.remove('input-focused');
+            mainContent.classList.remove('input-focused');
+        });
+    });
+});
+
 // Mensagens Diárias
 const messages = [
     "Você é uma pessoa incrível e merece tudo de bom!",
