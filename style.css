@@ -18,6 +18,7 @@ header {
     position: fixed;
     width: 100%;
     z-index: 1000;
+    transition: transform 0.3s ease;
 }
 
 header h1 {
@@ -438,6 +439,21 @@ button:hover {
         width: 100%;
         margin-top: 5px;
     }
+
+    input:focus, 
+    textarea:focus, 
+    select:focus {
+        position: relative;
+        z-index: 1001;
+    }
+
+    header.input-focused {
+        transform: translateY(-100%);
+    }
+
+    main.input-focused {
+        padding-top: 20px;
+    }
 }
 
 /* Ajustes específicos para iPhone 13 */
@@ -555,6 +571,52 @@ button:hover {
     button {
         padding: 8px 15px;
         font-size: 0.9em;
+    }
+}
+
+/* Adicione estes estilos */
+.menu-toggle {
+    display: none;
+    font-size: 1.5em;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 102, 179, 0.95);
+        flex-direction: column;
+        padding: 10px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    nav ul li a {
+        padding: 15px 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Ajuste do header para comportar o botão */
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
 	
